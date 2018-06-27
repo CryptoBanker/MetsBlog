@@ -1,2 +1,8 @@
-API Url = 
-Use as such: http://statsapi.mlb.com:80/api/v1/ + 'schedule?sportId=1' + '&date=MM/DD/YYYY' (incl. slashes);
+- Start with:
+  - 'npm start'
+    - don't forget to have the database initialized, psql running
+
+
+- API Url = Use as such: http://statsapi.mlb.com:80/api/v1/ + 'schedule?sportId=1' + '&date=MM/DD/YYYY' (incl. slashes);
+
+
