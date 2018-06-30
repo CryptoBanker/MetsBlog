@@ -1,21 +1,19 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
 const db = new Sequelize(
-  "postgres://postgres:rickisgreat@localhost:5432/metsblog"
+  'postgres://postgres:rickisgreat@localhost:5432/metsblog',
+  {
+    logging: false,
+  }
 );
 
-const Day = db.define("day", {
+const Day = db.define('day', {
   totalGames: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
   },
   gamesList: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER)
-  }
+    type: Sequelize.ARRAY(Sequelize.INTEGER),
+  },
 });
-
-// const Team = db.define("team", {
-//   name: Sequelize.STRING,
-//   flagURL: Sequelize.TEXT
-// });
 
 module.exports = { db, Day };

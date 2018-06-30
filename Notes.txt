@@ -6,3 +6,4 @@
 - API Url = Use as such: http://statsapi.mlb.com:80/api/v1/ + 'schedule?sportId=1' + '&date=MM/DD/YYYY' (incl. slashes);
 
 
+- Currently returns the first game of the using the above link
