@@ -13,6 +13,9 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 const { db, Day } = require('./db');
 
+/**
+ * Returns today's games in a slightly more workable format
+ */
 app.get('/api/today/games', async (req, res, next) => {
   try {
     let response = await getGames();
@@ -23,6 +26,9 @@ app.get('/api/today/games', async (req, res, next) => {
   }
 });
 
+/**
+ * Returns today's teams (no change)
+ */
 app.get('/api/today/teams', async (req, res, next) => {
   try {
     let response = await getTeams();
@@ -35,8 +41,14 @@ app.get('/api/today/teams', async (req, res, next) => {
   }
 });
 
+/**
+ * TODO: Will eventually return today's Mets data
+ */
 app.get('/api/today/mets', async (req, res, next) => {});
 
+/**
+ * Modifications to data returned from erwstout's API
+ */
 async function getGames(date) {
   let dateQuery = '';
   if (date) {
@@ -49,6 +61,9 @@ async function getGames(date) {
   return data;
 }
 
+/**
+ * Modifications to data returned from erwstout's API
+ */
 async function getTeams(teamId) {
   let teamQuery = '';
   if (teamId) {
@@ -59,29 +74,10 @@ async function getTeams(teamId) {
   return data;
 }
 
-// app.get('/api/today', async (req, res, next) => {
-//   let dayString = dateString();
-//   let queryString = apiString + dayString;
-//   const day = await apiFetch(queryString);
-//   day.dates.forEach(date => {
-//     date.games.forEach(game => {
-//       let awayTeam = game.teams.away.team.name;
-//       let homeTeam = game.teams.home.team.name;
-//       console.log('*****', awayTeam, ' ', homeTeam);
-//     });
-//   });
-//   res.json(day.dates[0].games);
-// });
-
-// app.get('/api/day/:month/:day/:year', async (req, res, next) => {
-//   let month = req.params.month;
-//   let day = req.params.day;
-//   let year = req.params.year;
-//   let dayString = month + '/' + day + '/' + year + '/';
-//   let apiString;
-//   res.json(dayString);
-// });
-
+/**
+ * Depracated and antiquated
+ * REMOVE?
+ */
 async function apiFetch(apiUrl) {
   try {
     const response = await Axios(apiUrl);
@@ -93,6 +89,9 @@ async function apiFetch(apiUrl) {
   }
 }
 
+/**
+ * Takes today's date and returns in 'mm/dd/yyyy' format
+ */
 function dateString() {
   let today = new Date();
   let day = today.getDate();
@@ -102,6 +101,10 @@ function dateString() {
   return dateString;
 }
 
+/**
+ * Start the server
+ * TODO: to move to another file
+ */
 (async () => {
   await db.sync({ force: true });
   app.listen(3000, () =>
