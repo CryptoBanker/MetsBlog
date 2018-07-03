@@ -12,7 +12,6 @@ const path = require('path');
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 const { db, Day } = require('./db');
-
 /**
  * Returns today's games in a slightly more workable format
  */
@@ -44,7 +43,21 @@ app.get('/api/today/teams', async (req, res, next) => {
 /**
  * TODO: Will eventually return today's Mets data
  */
-app.get('/api/today/mets', async (req, res, next) => {});
+app.get('/api/today/mets', async (req, res, next) => {
+  try {
+    let response = await getGames();
+    response = response.dates[0].games;
+    let toSend;
+    response.forEach(game => {
+      if (game.teams.home.team.id === 121 || game.teams.away.team.id === 121) {
+        toSend = game;
+      }
+    });
+    res.json(toSend);
+  } catch (err) {
+    next(err);
+  }
+});
 
 /**
  * Modifications to data returned from erwstout's API
